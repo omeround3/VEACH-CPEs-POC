@@ -71,7 +71,8 @@ def get_cpes(cpe_names):
 def cves_amount(cpes_dict):
     count = 0
     for cpe in cpes_dict:
-        count += cpes_dict[cpe]['totalResults']
+        if cpes_dict[cpe]['totalResults']:
+            count += cpes_dict[cpe]['totalResults']
     print(f'CVEs amount: {count}')
 
 if __name__ == '__main__':
@@ -90,7 +91,6 @@ if __name__ == '__main__':
      convert_file.write(json.dumps(result, indent=4))
 
     # Print results
-    # print(json.dumps(result, indent=4))
     cves_amount(result)
 
     # Total time taken
