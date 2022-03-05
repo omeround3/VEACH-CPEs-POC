@@ -44,13 +44,14 @@ def get_cpe(cpe_name):
     except Exception as err:
         print(f'Other error occurred: {err}')  # Python 3.6
     else:
-        print('Response Success!')
+        print(f'{cpe_name} - Response Success!')
     cpes_results[cpe_name] = response.json()
 
     return cpes_results
 
 def get_cpes(cpe_names):
     cpes_results = {}
+    count = 1
     for cpe_name in cpe_names:
         cpes_parameters_no_key['cpeMatchString'] = cpe_name
         try:
@@ -62,7 +63,8 @@ def get_cpes(cpe_names):
         except Exception as err:
             print(f'Other error occurred: {err}')  # Python 3.6
         else:
-            print(f'{cpe_name} - Response Success!')
+            print(f'{count} - {cpe_name} - Response Success!')
+            count += 1
         cpes_results[cpe_name] = response.json()
     return cpes_results
 
@@ -72,6 +74,8 @@ if __name__ == '__main__':
     
     # Parse packages from input file
     packages_list = get_packages()
+    print(f'Number of CPE Names: {len(packages_list)}')
+
     # result = get_cpe('cpe:2.3:a:*:accountsservice:0.6.45')
     result = get_cpes(packages_list)
 
